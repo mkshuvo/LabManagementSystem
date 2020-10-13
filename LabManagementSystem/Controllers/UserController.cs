@@ -25,7 +25,7 @@ namespace LabManagementSystem.Controllers
             roleManager = _roleManager;
             context = _context;
         }
-
+        //GET
         public IActionResult Login()
         {
             return View();
@@ -47,7 +47,8 @@ namespace LabManagementSystem.Controllers
                     Email = model.Email,
                     Name = model.Fullname,
                     PhoneNumber = model.PhoneNumber,
-                    UserName = model.Email
+                    UserName = model.Email,
+                    Address = model.Address
                 };
 
                 // Store user data in AspNetUsers database table
@@ -78,5 +79,35 @@ namespace LabManagementSystem.Controllers
             return View(model);
         }
 
+        //POST: User/Login
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
+                if (result.Succeeded)
+                {
+                    // Login is successful here, so we return now and the execution stops, meaning the bottom code never runs.
+                    return RedirectToAction("index", "home");
+                }
+            }
+
+            // If we get to this line, either the MoxelState isn't valid or the login failed.
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            return RedirectToAction("Login", "User");
+        }
+        public async Task<IActionResult> Logout(string returnUrl = null)
+        {
+            await signInManager.SignOutAsync();
+            if (returnUrl != null)
+            {
+                return LocalRedirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("index", "home");
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿@model LabManagementSystem.Shared.LoginViewModel
 @{
     ViewData["Title"] = "Login";
 }
@@ -7,7 +7,7 @@
 
 <form asp-action="Login">
     <div class="form-group row">
-        <label for="email" class="col-4 col-form-label">Email Address:</label>
+        <label asp-for="Email" class="col-4 col-form-label">Email Address:</label>
         <div class="col-8">
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -15,12 +15,12 @@
                         <i class="fa fa-address-card-o"></i>
                     </div>
                 </div>
-                <input id="email" name="email" placeholder="Email" type="text" class="form-control">
+                <input id="email" asp-for="Email" placeholder="Email" type="text" class="form-control">
             </div>
         </div>
     </div>
     <div class="form-group row">
-        <label for="password" class="col-4 col-form-label">Password</label>
+        <label asp-for="Password" class="col-4 col-form-label">Password</label>
         <div class="col-8">
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -28,7 +28,7 @@
                         <i class="fa fa-500px"></i>
                     </div>
                 </div>
-                <input id="password" name="password" placeholder="Password" type="text" class="form-control">
+                <input id="password" asp-for="Password" placeholder="Password" type="password" class="form-control">
             </div>
         </div>
     </div>

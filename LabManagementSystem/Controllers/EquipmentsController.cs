@@ -21,6 +21,8 @@ namespace LabManagementSystem.Controllers
         // GET: Equipments
         public async Task<IActionResult> Index()
         {
+            //string[] cars = { "Volvo", "BMW", "Ford", "Mazda" };
+
             return View(await _context.Equipments.ToListAsync());
         }
 
