@@ -29,7 +29,7 @@ namespace LabManagementSystem
             services.AddControllersWithViews();
             services.AddDbContext<LabDbContext>(options =>
             {
-                options.UseSqlite("Data Source = complain.db");
+                options.UseSqlite(Configuration.GetConnectionString("DevSqlite"));
             });
             services.AddIdentity<AppUser, AppRole>(
                 options => options.Stores.MaxLengthForKeys = 128)
