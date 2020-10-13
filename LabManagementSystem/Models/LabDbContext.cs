@@ -14,7 +14,10 @@ namespace LabManagementSystem.Models
         {
 
         }
+
         public DbSet<Equipment> Equipments { get; set; }
+        public DbSet<AppUser> AppUsers{ get; set; }
+        public DbSet<AppRole> AppRoles{ get; set; }
         public DbSet<Lab> Labs{ get; set; }
         public DbSet<LabEquipmentRelation> LabEquipmentRelations { get; set; }
         public DbSet<BookEquipment> BookEquipments{ get; set; }

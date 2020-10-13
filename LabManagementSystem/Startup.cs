@@ -6,6 +6,7 @@ using LabManagementSystem.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,8 +29,13 @@ namespace LabManagementSystem
             services.AddControllersWithViews();
             services.AddDbContext<LabDbContext>(options =>
             {
-                options.UseSqlite("Data Source = transaction.db");
+                options.UseSqlite("Data Source = complain.db");
             });
+            services.AddIdentity<AppUser, AppRole>(
+                options => options.Stores.MaxLengthForKeys = 128)
+                .AddEntityFrameworkStores<LabDbContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +56,7 @@ namespace LabManagementSystem
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

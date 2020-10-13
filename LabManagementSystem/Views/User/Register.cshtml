@@ -1,13 +1,15 @@
-﻿
+﻿@model LabManagementSystem.Shared.RegistrationViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Register";
 }
 
 <h1>Register</h1>
 
-<form>
+<form asp-action="Register">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group row">
-        <label for="fullName" class="col-4 col-form-label">Full Name</label>
+        <label asp-for="Fullname" for="fullName" class="col-4 col-form-label"></label>
         <div class="col-8">
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -15,12 +17,13 @@
                         <i class="fa fa-address-book"></i>
                     </div>
                 </div>
-                <input id="fullName" name="fullName" placeholder="Full Name" type="text" class="form-control">
+                <input asp-for="Fullname" id="fullName" name="fullName" placeholder="Full Name" type="text" class="form-control">
             </div>
+            <span asp-validation-for="Fullname" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
-        <label for="address" class="col-4 col-form-label">Address</label>
+        <label for="address" asp-for="Address" class="col-4 col-form-label"></label>
         <div class="col-8">
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -28,12 +31,27 @@
                         <i class="fa fa-home"></i>
                     </div>
                 </div>
-                <input id="address" name="address" placeholder="Address" type="text" class="form-control">
+                <input id="address" asp-for="Address" name="address" placeholder="Address" type="text" class="form-control">
             </div>
+            <span asp-validation-for="Address" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
-        <label for="email" class="col-4 col-form-label">Email Address</label>
+        <label asp-for="PhoneNumber" class="col-4 col-form-label"></label>
+        <div class="col-8">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-home"></i>
+                    </div>
+                </div>
+                <input id="PhoneNumber" asp-for="PhoneNumber" name="PhoneNumber" placeholder="Phone Number" type="text" class="form-control">
+            </div>
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="email" asp-for="Email" class="col-4 col-form-label"></label>
         <div class="col-8">
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -41,12 +59,14 @@
                         <i class="fa fa-briefcase"></i>
                     </div>
                 </div>
-                <input id="email" name="email" placeholder="Email" type="text" class="form-control">
+                <input id="email" asp-for="Email" name="email" placeholder="Email" type="text" class="form-control">
             </div>
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
     </div>
+
     <div class="form-group row">
-        <label for="password" class="col-4 col-form-label">Password</label>
+        <label for="password" asp-for="Password" class="col-4 col-form-label"></label>
         <div class="col-8">
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -54,12 +74,14 @@
                         <i class="fa fa-500px"></i>
                     </div>
                 </div>
-                <input id="password" name="password" placeholder="Password" type="text" class="form-control">
+                <input id="password" asp-for="Password" name="password" placeholder="Password" type="text" class="form-control">
             </div>
+            <span asp-validation-for="Password" class="text-danger"></span>
         </div>
     </div>
+
     <div class="form-group row">
-        <label for="confirmPassword" class="col-4 col-form-label">Confirm Password</label>
+        <label for="confirmPassword" asp-for="ConfirmPassword" class="col-4 col-form-label"></label>
         <div class="col-8">
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -67,13 +89,17 @@
                         <i class="fa fa-500px"></i>
                     </div>
                 </div>
-                <input id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" type="text" class="form-control">
+                <input id="confirmPassword" asp-for="ConfirmPassword" name="confirmPassword" placeholder="Confirm Password" type="text" class="form-control">
             </div>
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
         <div class="offset-4 col-8">
-            <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+            <button name="submit" type="submit" class="btn btn-primary">Sign Up</button>
         </div>
     </div>
 </form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
