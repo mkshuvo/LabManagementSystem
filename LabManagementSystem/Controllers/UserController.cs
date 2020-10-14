@@ -28,10 +28,18 @@ namespace LabManagementSystem.Controllers
         //GET
         public IActionResult Login()
         {
+            if(signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("index", "home");
+            }
             return View();
         }
         public IActionResult Register()
         {
+            if(signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("index", "home");
+            }
             return View();
         }
         [HttpPost]
