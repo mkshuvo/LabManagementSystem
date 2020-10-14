@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LabManagementSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
 namespace LabManagementSystem.Controllers
 {
+    [Authorize]
     public class LabsController : Controller
     {
         private readonly LabDbContext _context;

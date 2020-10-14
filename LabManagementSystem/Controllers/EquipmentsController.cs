@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LabManagementSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LabManagementSystem.Controllers
 {
+    [Authorize]
     public class EquipmentsController : Controller
     {
         private readonly LabDbContext _context;
@@ -21,8 +23,6 @@ namespace LabManagementSystem.Controllers
         // GET: Equipments
         public async Task<IActionResult> Index()
         {
-            //string[] cars = { "Volvo", "BMW", "Ford", "Mazda" };
-
             return View(await _context.Equipments.ToListAsync());
         }
 
