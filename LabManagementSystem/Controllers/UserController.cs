@@ -43,7 +43,7 @@ namespace LabManagementSystem.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(RegistrationViewModel model)
+        public async Task<IActionResult> Register(RegistrationViewModel model, string ReturnUrl)
         {
             //TODO: Make user registration 
             if (ModelState.IsValid)
@@ -73,6 +73,10 @@ namespace LabManagementSystem.Controllers
                     }
                     await userManager.AddToRoleAsync(user, role1);
 
+                    if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
+                    {
+                        return Redirect(ReturnUrl);
+                    }
                     return RedirectToAction("index", "home");
                 }
 
@@ -89,13 +93,17 @@ namespace LabManagementSystem.Controllers
 
         //POST: User/Login
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string ReturnUrl)
         {
             if (ModelState.IsValid)
             {
                 var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
+                    if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
+                    {
+                        return Redirect(ReturnUrl);
+                    }
                     // Login is successful here, so we return now and the execution stops, meaning the bottom code never runs.
                     return RedirectToAction("index", "home");
                 }
