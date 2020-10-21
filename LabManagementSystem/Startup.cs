@@ -30,7 +30,7 @@ namespace LabManagementSystem
             services.AddControllersWithViews();
             services.AddDbContext<LabDbContext>(options =>
             {
-                options.UseSqlite(Configuration.GetConnectionString("DevSqlite"));
+                options.UseNpgsql(Configuration.GetConnectionString("DevPg"));
             });
             services.AddIdentity<AppUser, AppRole>(
                 options => options.Stores.MaxLengthForKeys = 128)
