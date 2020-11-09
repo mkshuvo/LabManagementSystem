@@ -44,7 +44,8 @@ namespace LabManagementSystem.Migrations
                     Discriminator = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
-                    Approved = table.Column<string>(nullable: true)
+                    Approved = table.Column<string>(nullable: true),
+                    UserImageName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -75,8 +76,8 @@ namespace LabManagementSystem.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
                     SubmissionDate = table.Column<DateTime>(nullable: false),
                     Status = table.Column<bool>(nullable: false)
                 },

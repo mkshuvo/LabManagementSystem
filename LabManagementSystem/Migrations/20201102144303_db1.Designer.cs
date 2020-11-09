@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LabManagementSystem.Migrations
 {
     [DbContext(typeof(LabDbContext))]
-    [Migration("20201013142651_db1")]
+    [Migration("20201102144303_db1")]
     partial class db1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,9 +54,11 @@ namespace LabManagementSystem.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Status")
@@ -333,6 +335,9 @@ namespace LabManagementSystem.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserImageName")
                         .HasColumnType("TEXT");
 
                     b.HasDiscriminator().HasValue("AppUser");

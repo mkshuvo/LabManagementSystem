@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using LabManagementSystem.Models;
 using LabManagementSystem.Shared;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,15 +17,17 @@ namespace LabManagementSystem.Controllers
         private readonly UserManager<AppUser> userManager;
         private readonly SignInManager<AppUser> signInManager;
         private readonly RoleManager<AppRole> roleManager;
+        private readonly IWebHostEnvironment hostingEnvironment;
         private readonly LabDbContext context;
         readonly string role1 = "student";
         readonly string role2 = "admin";
 
-        public UserController(UserManager<AppUser> _userManager, SignInManager<AppUser> _signInManager, RoleManager<AppRole> _roleManager, LabDbContext _context)
+        public UserController(UserManager<AppUser> _userManager, SignInManager<AppUser> _signInManager, RoleManager<AppRole> _roleManager, LabDbContext _context, IWebHostEnvironment _hostingEnvironment)
         {
             userManager = _userManager;
             signInManager = _signInManager;
             roleManager = _roleManager;
+            hostingEnvironment = _hostingEnvironment;
             context = _context;
         }
         //GET
@@ -48,7 +53,11 @@ namespace LabManagementSystem.Controllers
             //TODO: Make user registration 
             if (ModelState.IsValid)
             {
-
+                String UploadFolder = Path.Combine(hostingEnvironment.WebRootPath, "UserImage");
+                String UniqueFileName = Guid.NewGuid().ToString() + "_" + model.UserImage.FileName;
+                String FilePath = Path.Combine(UploadFolder, UniqueFileName);
+                model.UserImage.CopyTo(new FileStream(FilePath, FileMode.Create));
+                
                 // Copy data from RegisterViewModel to IdentityUser
                 var user = new AppUser
                 {
@@ -56,8 +65,10 @@ namespace LabManagementSystem.Controllers
                     Name = model.Fullname,
                     PhoneNumber = model.PhoneNumber,
                     UserName = model.Email,
-                    Address = model.Address
+                    Address = model.Address,
+                    UserImageName = UniqueFileName
                 };
+
 
                 // Store user data in AspNetUsers database table
                 var result = await userManager.CreateAsync(user, model.Password);
@@ -66,6 +77,13 @@ namespace LabManagementSystem.Controllers
                 {
                     // Automatic signin 
                     await signInManager.SignInAsync(user, isPersistent: false);
+                    // var imageStore = new UserImageStore
+                    // {
+                    //     UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    //     ImageName = UniqueFileName
+                    // };
+                    // context.Add(imageStore);
+                    // await context.SaveChangesAsync();
                     //if the use has no role, give them student Role.
                     if (await roleManager.FindByNameAsync(role1) == null)
                     {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LabManagementSystem.Models
 {
-    public class LabDbContext:IdentityDbContext<IdentityUser,IdentityRole,string>
+    public class LabDbContext:IdentityDbContext<AppUser,AppRole,string>
     {
         public LabDbContext(DbContextOptions<LabDbContext> options):base(options)
         {

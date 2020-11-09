@@ -52,9 +52,11 @@ namespace LabManagementSystem.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Status")
@@ -331,6 +333,9 @@ namespace LabManagementSystem.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserImageName")
                         .HasColumnType("TEXT");
 
                     b.HasDiscriminator().HasValue("AppUser");
