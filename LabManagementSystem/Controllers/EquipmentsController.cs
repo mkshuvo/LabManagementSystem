@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LabManagementSystem.Controllers
 {
-    [Authorize]
+    
     public class EquipmentsController : Controller
     {
         private readonly LabDbContext _context;
@@ -45,6 +45,7 @@ namespace LabManagementSystem.Controllers
         }
 
         // GET: Equipments/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -55,6 +56,7 @@ namespace LabManagementSystem.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,SubmissionDate,Status")] Equipment equipment)
         {
             if (ModelState.IsValid)
@@ -67,6 +69,7 @@ namespace LabManagementSystem.Controllers
         }
 
         // GET: Equipments/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -87,6 +90,7 @@ namespace LabManagementSystem.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,SubmissionDate,Status")] Equipment equipment)
         {
             if (id != equipment.Id)
@@ -118,6 +122,7 @@ namespace LabManagementSystem.Controllers
         }
 
         // GET: Equipments/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,6 +143,7 @@ namespace LabManagementSystem.Controllers
         // POST: Equipments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var equipment = await _context.Equipments.FindAsync(id);
